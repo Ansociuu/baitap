@@ -56,11 +56,12 @@ void nhap(DT &x)
         }
 
     }
+    printf("Gia tien: "); scanf("%lf",&x.gia);
 }
 
 void in(DT x, int i)
 {
-    printf("| %3d | %-10s | %-9s | %2dGB  | %-10s | %10d |\n",i+1,x.tenhang,x.tenmay,x.ram,x.chip,x.gia);
+    printf("| %3d | %-10s | %-9s | %2dGB  | %-10s | %10.1lf |\n",i+1,x.tenhang,x.tenmay,x.ram,x.chip,x.gia);
 }
 
 void xuatDanhSach(DT ds[], int n)
@@ -89,13 +90,19 @@ void sapXep(DT ds[], int n)
     }
 }
 
-void timkiem(DT ds[], int n, int x, int y, int z)
+void timkiem(DT ds[], int n, int x, double y, double z)
 {
     printf("| %3s | %-10s | %-9s |  %2s  | %-10s | %10s |\n","STT","Ten hang","Ten may","RAM","Chip","Gia");
+    int dem = 0;
     for (int i=0; i<n; i++)
     {
-        if ((ds[i].ram == x) && (ds[i].gia >= y && ds[i].gia <= z)) in(ds[i],i+1);
+        if ((ds[i].ram == x) && (ds[i].gia >= y && ds[i].gia <= z))
+        {
+            dem = 1;
+            in(ds[i],i);
+        }
     }
+    if (dem == 0) printf("Khong co san pham phu hop");
 }
 
 int main()
@@ -116,7 +123,8 @@ int main()
     }
     xuatDanhSach(ds,n);
     sapXep(ds,n); xuatDanhSach(ds,n);
-    int a,b,c;
+    int a;
+    double b,c;
     printf("Lua chon dung luong RAM: ");
     scanf("%d",&a);
     while (a%4 != 0)
@@ -124,8 +132,8 @@ int main()
         printf("Khong co muc RAM nay, moi nhap lai: ");
         scanf("%d",&a);
     }
-    printf("Muc gia ban muon tim\nTu: ");  scanf("%d",&b);
-    printf("Den: ");  scanf("%d",&c);
+    printf("Muc gia ban muon tim\nTu: ");  scanf("%lf",&b);
+    printf("Den: ");  scanf("%lf",&c);
     printf("Ket qua sau khi tim kiem:\n");
     timkiem(ds,n,a,b,c);
     return 0;
